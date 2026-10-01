@@ -1,5 +1,7 @@
 # OBD2MQTT
 
+![OBD2MQTT](docs/images/OBD2MQTT_head.png)
+
 For years, I used the excellent [ioBroker VW Connect adapter by TA2k](https://github.com/TA2k/ioBroker.vw-connect) to integrate my SEAT Mii Electric into my home automation.
 
 And to be clear right from the start: the adapter was not the problem. TA2k did a great job working with what Volkswagen provided.
@@ -30,7 +32,15 @@ OBD2MQTT reads a SEAT Mii Electric, VW e-Up Gen2 or Škoda Citigo-e iV directly 
 
 The project uses read-only diagnostic requests. The two Vgate dongles have the same advertised BLE name, so each installation must be configured with the MAC address of the matching dongle.
 
+## Scope and extensions
+
+This implementation has been developed and tested for the SEAT Mii Electric. The ECU addresses, diagnostic identifiers and value decoding are specific to this vehicle family. Other cars may use different control units, identifiers, BLE adapters or diagnostic protocols and will likely require code and configuration changes.
+
+OBD2MQTT is intended as a practical starting point for personal projects and extensions. Add support for other vehicles, sensors, MQTT formats, dashboards or automation systems as needed. The project is fully vibecoded: use the code, logs and documented assumptions as a starting point, verify everything on your own hardware, and improve it for your use case.
+
 ## Required hardware
+
+![Required hardware](docs/images/OBD2MQTT_parts.jpeg)
 
 You need:
 
@@ -43,6 +53,16 @@ You need:
 An OBD2 Y-cable makes it possible to keep the Vgate connected and power the ESP separately. On the OBD2 connector, pin 4 is Ground and pin 16 is permanent 12 V. These can be connected to a 12 V USB adapter for powering the ESP32. Check the wiring and polarity carefully before connecting anything to the vehicle.
 
 The firmware targets the Seeed Studio XIAO ESP32-C6 and is designed for permanent power. Each cycle scans for the configured BLE dongle, reads the vehicle, publishes retained MQTT values when Wi-Fi is available, then enters deep sleep for 15 minutes. Only the timer wakes the controller.
+
+## Assembly and installation
+
+The assembled electronics use the XIAO ESP32-C6, its antenna, the Vgate adapter and the OBD2 Y-cable together with a 12 V to USB converter:
+
+![Assembled OBD2MQTT hardware](docs/images/OBD2MQTT_assembled.jpeg)
+
+The setup can be installed in the vehicle near the OBD connector. Secure all parts so that they cannot interfere with the pedals, steering or other moving components:
+
+![OBD2MQTT installed in a SEAT Mii Electric](docs/images/OBD2MQTT_SEATmiiElectric.jpeg)
 
 ## Setup
 
@@ -80,4 +100,4 @@ This project is provided as-is. I do not assume any warranty or liability for da
 
 ## License
 
-Choose and add a license before distributing the project.
+OBD2MQTT is released under the [MIT License](LICENSE).
