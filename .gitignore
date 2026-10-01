@@ -1,0 +1,10 @@
+.pio/
+.platformio-clean/
+.platformio-stale/
+.venv/
+src/config.h
+*.bin
+*.elf
+*.map
+*.log
+.DS_Store
